@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="betastyle.css">
+	<link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+</head>
+<body>
+<div class="split_home left_home">
+  <div class="centered">
+    <h1 class="intro_title">Welcome to Our Coding Test</h1>
+  </div>
+</div>
+
+<div class="split_home right_home">
+  <div class="centered">
+    <div class="myForm">
+	  <h1>Enter your UCID and Password</h1>
+		<form name="loginForm">
+		  <input type="text" autocomplete="off" name="username" id="username" placeholder="UCID" class="input">      <br />
+		  <input type="password" autocomplete="off" name="password" id="password" placeholder="Password" class="input"><br />
+		  <button type="button" id="btn" name="button">Login</button><!-- name attribute is used on server side to grab the value of the input field -->
+      <p id="error"></p>
+    </form>
+	  </div>
+  </div>
+</div>
+
+</body>
+<script type="text/javascript">
+  var btn = document.getElementById("btn");
+  btn.addEventListener("click", loginFunc);
+  
+  function loginFunc(){
+    console.log("Button Pressed");
+    var ucid = document.loginForm.username.value;
+		var pw = document.loginForm.password.value; 
+    var xhttp = new XMLHttpRequest();
+    var payload = JSON.stringify({"username":ucid, "password":pw});
+    
+    xhttp.open("POST", "https://web.njit.edu/~cfl4/index.php", true);
+    xhttp.send(payload);
+    console.log(payload);
+    xhttp.onreadystatechange = function(){
+      if(xhttp.readyState == 4 && xhttp.status == 200){
+        var error = "Invalid UCID or Password"
+        var response = this.responseText;
+        console.log(response);
+        var parsed = JSON.parse(response);
+        console.log(parsed);
+        if(parsed.type == "s"){
+          window.location.href = "https://web.njit.edu/~cfl4/slandingpg.php";
+        }
+        else if(parsed.type == "i"){
+          window.location.href = "https://web.njit.edu/~cfl4/tlandingpg.php";
+        }
+        else{
+          document.getElementById("error").innerHTML = error;
+        }
+      };
+    } 
+  }
+</script>
+
+</html>
