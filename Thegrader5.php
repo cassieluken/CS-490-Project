@@ -1,16 +1,5 @@
 <?php
 
-// $input = file_get_contents('php://input');
-// $decode = json_decode($input, true);
-
-// $examIDBack = $decode['examID'];
-// $questionBack = $decode['question'];
-// $funcNameBack = $decode['functionName'];
-// $SanswerBack = $decode['studentAnswer'];
-// $tcINBack = $decode['testCaseIn'];
-// $tcOUTBack = $decode['testCaseOut'];
-// $pointsBack = $decode['points'];
-// $constraintBack = $decode['questionConstraint'];
 
 $examIDBack = $_POST['examID'];
 $questionBack = $_POST['question'];
